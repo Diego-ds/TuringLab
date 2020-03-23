@@ -21,5 +21,8 @@ public class Tape {
 	public void setPrevTape(Tape prevTape) {
 		this.prevTape = prevTape;
 	}
+	public char getLetter() {
+		return letter;
+	}
 	
 }
