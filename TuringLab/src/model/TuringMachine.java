@@ -14,16 +14,10 @@ public class TuringMachine {
 	
 	public void addTape(int head,char letter) {
 		Tape toAdd = new Tape(letter);
-		if(c0==null) {
+		if(n==0) {
 			c0=toAdd;
 			c1=toAdd;
 			c2=toAdd;
-			n++;
-		}else if(c1.getPrevTape()==null && head==1) {
-			c1.setPrevTape(toAdd);
-			toAdd.setPrevTape(c1);
-			c1=toAdd;
-			c0=toAdd;
 			n++;	
 		}else {
 			switch(head) {
@@ -37,7 +31,13 @@ public class TuringMachine {
 				}
 				break;
 			case 1:
-				if(n%2==0) {
+				if(c1.getPrevTape()==null && n==1) {
+					c1.setPrevTape(toAdd);
+					toAdd.setNextTape(c1);
+					c1=toAdd;
+					c0=toAdd;
+					n++;
+				}else if(n%2==0) {
 					Tape next =c1.getNextTape();
 					c1.setNextTape(toAdd);
 					toAdd.setPrevTape(c1);
@@ -74,12 +74,11 @@ public class TuringMachine {
 			c1=null;
 			c2=null;
 			n--;
-		}
-		if(c0!=null) {
+		}else if(c0!=null) {
 			switch(head) {
 			case 0:
-				c0=c0.getNextTape();
 				c0.getNextTape().setPrevTape(null);
+				c0=c0.getNextTape();	
 				n--;
 				if(n%2 !=0) {
 					c1=c1.getNextTape();
