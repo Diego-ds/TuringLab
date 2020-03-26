@@ -86,7 +86,12 @@ public class TuringMachine {
 				}
 				break;
 			case 1:
-				if(n%2 ==0) {
+				if(n==2) {
+					c1.getNextTape().setPrevTape(null);
+					c0=c1.getNextTape();
+					c1=c1.getNextTape();
+					n--;
+				}else if(n%2 ==0) {
 					Tape next = c1.getNextTape();
 					c1.getPrevTape().setNextTape(next);
 					next.setPrevTape(c1.getPrevTape());
@@ -137,5 +142,12 @@ public class TuringMachine {
 			break;
 		}
 		return tape;
+	}
+	
+	public void deleteAll() {
+		c0=null;
+		c1=null;
+		c2=null;
+		n=0;
 	}
 }
